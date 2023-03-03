@@ -1,0 +1,42 @@
+diff --git a/node_modules/@harborlockers/react-native-sdk/android/build.gradle b/node_modules/@harborlockers/react-native-sdk/android/build.gradle
+index 49496cd..25ab012 100644
+--- a/node_modules/@harborlockers/react-native-sdk/android/build.gradle
++++ b/node_modules/@harborlockers/react-native-sdk/android/build.gradle
+@@ -22,7 +22,6 @@ def safeExtGet(prop, fallback) {
+ }
+ 
+ apply plugin: 'com.android.library'
+-apply plugin: 'maven'
+ 
+ buildscript {
+     // The Android Gradle plugin is only required when opening the android folder stand-alone.
+@@ -50,10 +49,6 @@ android {
+         versionCode 1
+         versionName "1.0"
+     }
+-    compileOptions {
+-        sourceCompatibility JavaVersion.VERSION_1_8
+-        targetCompatibility JavaVersion.VERSION_1_8
+-    }
+     lintOptions {
+         abortOnError false
+     }
+@@ -114,7 +109,6 @@ afterEvaluate { project ->
+     task androidJavadoc(type: Javadoc) {
+         source = android.sourceSets.main.java.srcDirs
+         classpath += files(android.bootClasspath)
+-        classpath += files(project.getConfigurations().getByName('compile').asList())
+         include '**/*.java'
+     }
+ 
+@@ -145,10 +139,5 @@ afterEvaluate { project ->
+ 
+     task installArchives(type: Upload) {
+         configuration = configurations.archives
+-        repositories.mavenDeployer {
+-            // Deploy to react-native-event-bridge/maven, ready to publish to npm
+-            repository url: "file://${projectDir}/../android/maven"
+-            configureReactNativePom pom
+-        }
+     }
+ }
