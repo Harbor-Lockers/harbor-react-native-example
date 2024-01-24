@@ -22,21 +22,18 @@ import * as API from './api';
 import {Button} from './components/Button';
 import HarborLockersSDK from '@harborlockers/react-native-sdk';
 import {PERMISSIONS, requestMultiple} from 'react-native-permissions';
+import Config from './credentials';
 
-const USER_NAME = 'yourAccount@email.here'; // fill with your username
-const USER_PWD = 'yourPassword'; // fill with your password
-const SDK_ENV = 'targetEnvironment'; // fill with your target sdk environment
-const MY_TOWER_ID = 'yourTowerId'; // fill with your tower id
-const SESSION_ROLE = 0b00000100;
+// these are being imported from ./credentials
+const CLIENT_NAME = Config.CLIENT_ID;
+const CLIENT_SECRET = Config.CLIENT_SECRET;
+const SDK_ENV = Config.SDK_ENV;
+const MY_TOWER_ID = Config.MY_TOWER_ID;
+const SESSION_ROLE = 5; // developer role
 const TOWER_SYNC_TIMEOUT = 30; // number of seconds to wait before tower sync timeouts
 const DOOR_TIMEOUT = 6; // number of seconds to wait before door status check timeouts
 
-/*If required to change the base url you can do so @ ./api.js */
-const myUserAccount = {
-  username: USER_NAME,
-  password: USER_PWD,
-  grant_type: 'password',
-};
+/* The URLs for all of these api calls are stored in ./api.js */
 
 const initialState = {
   api_access_token: '',
@@ -44,16 +41,15 @@ const initialState = {
   sdk_token: '',
   my_tower_is_connected: false,
   sdk_initializated: false,
-  my_tower_in_range: false,
   my_tower_is_synced: false,
   can_reopen_locker: false,
   available_lockers: [],
 };
 
-// APP
 const App = () => {
   const eventEmitter = new NativeEventEmitter(NativeModules.HarborLockersSDK);
   const [accessConfig, setAccessConfig] = useState({...initialState});
+  const [towerInRange, setTowerInRange] = useState(false);
 
   // error alert display
   const displayAlert = (alertTitle, alertBody) => {
@@ -64,32 +60,38 @@ const App = () => {
       },
     ]);
   };
+  // check if bluetooth is enabled, if not then request permission
+  const checkBluetoothPermissions = async () => {
+    return Platform.OS === 'android'
+      ? (async () => {
+          const androidOsVer =
+            Platform.OS === 'android' && Platform.constants['Release'];
+          let androidPermissions = [PERMISSIONS.ANDROID.BLUETOOTH_SCAN];
+
+          if (androidOsVer > 11) {
+            androidPermissions.push(PERMISSIONS.ANDROID.BLUETOOTH_SCAN);
+          }
+
+          const statusesList = await requestMultiple(androidPermissions);
+          return Object.values(statusesList);
+        })()
+      : requestMultiple([PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL]);
+  };
 
   // gets sdk & api tokens from api, authenticates user bearing the requested api token
   const loadConfig = async () => {
     try {
-      const userData = await API.retrieveCredentials(myUserAccount);
+      const userData = await API.retrieveCredentials(
+        CLIENT_NAME,
+        CLIENT_SECRET,
+      );
       setAccessConfig({...accessConfig, ...userData});
     } catch (error) {
-      displayAlert('Network error', 'Failed to retrieve credentials');
-    }
-  };
-
-  // get the data of the lockers that are available for a drop off
-  const getAvailableLockersForDropOff = async (towerId, bearerToken) => {
-    try {
-      const availableLockers = await API.getLockersInTower(
-        towerId,
-        bearerToken,
+      displayAlert(
+        'Network error',
+        'Is your information in credentials.js correct?',
       );
-      if (availableLockers.length !== 0) {
-        setAccessConfig({
-          ...accessConfig,
-          available_lockers: [...availableLockers],
-        });
-      }
-    } catch (error) {
-      displayAlert('Network error', 'Failed to retrieve lockers');
+      console.log('Failed at loading config', error);
     }
   };
 
@@ -97,13 +99,8 @@ const App = () => {
   const initSdk = (sdkToken, env) => {
     HarborLockersSDK.setAccessToken(sdkToken, env);
     HarborLockersSDK.initializeSDK();
+    //HarborLockersSDK.setLogLevel('debug'); // uncomment this line if you need to see debug information in the console. Such as firmware or SDK version
     setAccessConfig({...accessConfig, sdk_initializated: true});
-  };
-
-  // ends current session with tower
-  const endTowerSession = () => {
-    HarborLockersSDK.sendTerminateSession(0, 'Session terminated by user');
-    setAccessConfig({...initialState});
   };
 
   // Start bluetooth discovery of devices to stablish initial handshake with tower
@@ -130,6 +127,7 @@ const App = () => {
       })
       .catch(error => {
         displayAlert('Error establishing session', error.message);
+        console.log('Cannot connect to tower', error);
       });
   };
 
@@ -148,10 +146,32 @@ const App = () => {
       }
     });
   };
-
-  // request drop off tokens to open locker by id
+  // get the data of the lockers that are available for a drop off
+  const getAvailableLockersForDropOff = async (towerId, bearerToken) => {
+    try {
+      const availableLockers = await API.getLockersInTower(
+        towerId,
+        bearerToken,
+      );
+      if (availableLockers.length !== 0) {
+        setAccessConfig({
+          ...accessConfig,
+          available_lockers: [...availableLockers],
+        });
+      }
+    } catch (error) {
+      displayAlert(
+        'Network error',
+        'Failed to retrieve lockers, Try refreshing your SDK credentials',
+      );
+      console.log('Failed getting available lockers', error);
+    }
+  };
   const openLockerForDropOff = async (towerId, lockerId, bearerToken) => {
-    setAccessConfig({...accessConfig, can_reopen_locker: false});
+    setAccessConfig(prevAccessConfig => ({
+      ...prevAccessConfig,
+      can_reopen_locker: false,
+    }));
     try {
       const lockerKeyPair = await API.createDropOffToken(
         towerId,
@@ -166,11 +186,10 @@ const App = () => {
         );
       if (resultFromOpenCommand) {
         confirmDoorIsOpen(resultFromOpenCommand[0], DOOR_TIMEOUT);
-      } else {
-        throw new Error('Could not open door');
       }
     } catch (error) {
       displayAlert('Door error', 'Could not open target door');
+      console.log('Failed while opening the locker for drop off', error);
     }
   };
 
@@ -202,19 +221,10 @@ const App = () => {
     HarborLockersSDK.sendReopenLockerCommand();
   };
 
-  // check if bluetooth is enabled, if not then request permission
-  const checkBluetoothPermissions = () => {
-    requestMultiple(
-      Platform.OS === 'android'
-        ? [
-            PERMISSIONS.ANDROID.BLUETOOTH_SCAN,
-            PERMISSIONS.ANDROID.BLUETOOTH_CONNECT,
-            PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
-          ]
-        : [PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL],
-    ).then(_ => {
-      console.log('permission results', _);
-    });
+  // ends current session with tower
+  const endTowerSession = () => {
+    HarborLockersSDK.sendTerminateSession(0, 'Session terminated by user');
+    setAccessConfig({...initialState});
   };
 
   useEffect(() => {
@@ -226,32 +236,33 @@ const App = () => {
     const subscription = eventEmitter.addListener('TowersFound', towers => {
       towers.forEach(tower => {
         if (tower.towerId.toLowerCase() === MY_TOWER_ID?.toLowerCase()) {
-          setAccessConfig({
-            ...accessConfig,
-            my_tower_in_range: true,
-          });
+          setTowerInRange(true);
           return;
         }
       });
     });
+    const subscriptionLog = eventEmitter.addListener('HarborLogged', result => {
+      console.log('HARBOR SDK LOG: ', result);
+    });
     return () => {
+      subscriptionLog.remove();
       subscription.remove();
     };
-  });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <SafeAreaView style={styles.flexContainer}>
       <View style={styles.controls}>
         <Text style={styles.sectionTitle}>{'Controls'}</Text>
+        <Text
+          style={
+            styles.sectionTitle
+          }>{`Available Lockers: ${accessConfig.available_lockers.length}`}</Text>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollviewOuter}
           contentContainerStyle={styles.scrollviewContent}>
-          <Button
-            title="Get SDK Credentials"
-            onPress={() => loadConfig()}
-            disabled={!!accessConfig.api_access_token}
-          />
+          <Button title="Get SDK Credentials" onPress={() => loadConfig()} />
           <Button
             title="Initialize SDK"
             onPress={() => initSdk(accessConfig.sdk_token, SDK_ENV)}
@@ -265,17 +276,7 @@ const App = () => {
           <Button
             title="Connect to My Tower"
             onPress={() => connectToMyTower(MY_TOWER_ID)}
-            disabled={!accessConfig.my_tower_in_range}
-          />
-          <Button
-            title="Disconnect from Tower"
-            onPress={() => endTowerSession()}
-            disabled={!accessConfig.my_tower_is_synced}
-          />
-          <Button
-            title="Reopen last locker"
-            onPress={() => reOpenLastDoorOpened()}
-            disabled={!accessConfig.can_reopen_locker}
+            disabled={!towerInRange}
           />
           <Button
             title="Get Available Lockers"
@@ -287,13 +288,19 @@ const App = () => {
             }
             disabled={!accessConfig.my_tower_is_synced}
           />
+          <Button
+            title="Reopen last locker"
+            onPress={() => reOpenLastDoorOpened()}
+            disabled={!accessConfig.can_reopen_locker}
+          />
+          <Button
+            title="Disconnect from Tower"
+            onPress={() => endTowerSession()}
+            disabled={!accessConfig.my_tower_is_synced}
+          />
         </ScrollView>
       </View>
       <View style={styles.lockerLst}>
-        <Text
-          style={
-            styles.sectionTitle
-          }>{`Available Lockers: ${accessConfig.available_lockers.length}`}</Text>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollviewOuter}
@@ -326,7 +333,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 20,
   },
   scrollviewOuter: {flex: 1},
   sectionTitle: {
