@@ -1,40 +1,48 @@
 import axios from 'axios';
-
-const BASE_URL = 'https://api.sandbox.harborlockers.com/api/v1/';
-
-// networking
+import Config from './credentials';
+const loginURL = () => {
+  switch (Config.SDK_ENV) {
+    case 'production':
+      return '.';
+    case 'sandbox':
+      return '.sandbox.';
+    case 'development':
+      return '.dev.';
+  }
+};
+const BASE_URL = `https://api${loginURL()}harborlockers.com/api/v1/`;
+const BASE_LOGIN = `https://accounts${loginURL()}harborlockers.com/realms/harbor/protocol/openid-connect/token`;
+// In production private credentials should be handled on the back-end, this is only an example.
 
 // get user api token for further requests
-export async function retrieveCredentials(loginRequestBody) {
+export const retrieveCredentials = async (name, secret) => {
   try {
     const requestOptions = {
       headers: {
-        'Content-type': 'multipart/form-data',
-        Accept: 'multipart/form-data',
+        'content-type': 'application/x-www-form-urlencoded',
+        Accept: 'application/json',
       },
     };
-    const encodedBody = new FormData();
-    encodedBody.append('username', loginRequestBody.username);
-    encodedBody.append('password', loginRequestBody.password);
-    encodedBody.append('grant_type', loginRequestBody.grant_type);
-    const loginResponse = await axios.post(
-      `${BASE_URL}login/access-token`,
-      encodedBody,
-      requestOptions,
-    );
+    const encodedBody = {
+      grant_type: 'client_credentials',
+      scope: 'service_provider tower_access',
+      client_id: name,
+      client_secret: secret,
+    };
+    const response = await axios.post(BASE_LOGIN, encodedBody, requestOptions);
     const sdkTokenResponse = await authorizeCredentials(
-      loginResponse.data.access_token,
+      response.data.access_token,
     );
     return {
-      api_access_token: loginResponse.data.access_token,
-      token_type: loginResponse.data.token_type,
+      api_access_token: response.data.access_token,
+      token_type: response.data.token_type,
       sdk_token: sdkTokenResponse.access_token,
     };
   } catch (error) {
+    console.log('retrive credentials failed')
     throw error;
   }
-}
-
+};
 // authorize user for sdk usage, gets harbor sdk token
 async function authorizeCredentials(bearerToken) {
   try {
