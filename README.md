@@ -1,6 +1,6 @@
 # Harbor SDK React Native Reference
 
-This project was created with React Native 0.72.6
+This project was created with React Native 0.74.5
 
 If you have any issues getting this App or your App running: check our [Harbor Documentation](https://docs.harborlockers.com/how_harbor_works.html)
 
