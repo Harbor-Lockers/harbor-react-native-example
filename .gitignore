@@ -20,6 +20,8 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
+.yarnrc.yml
+yarn.lock
 
 # Android/IntelliJ
 #
@@ -35,6 +37,10 @@ local.properties
 node_modules/
 npm-debug.log
 yarn-error.log
+.yarn
+.vscode
+.bundle
+__tests__
 
 # BUCK
 buck-out/
@@ -59,3 +65,8 @@ buck-out/
 # Ruby / CocoaPods
 /ios/Pods/
 /vendor/bundle/
+
+
+# env
+credentials.js
+credentials
