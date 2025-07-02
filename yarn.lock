@@ -1211,10 +1211,10 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
-"@harborlockers/react-native-sdk@^1.0.39":
-  version "1.0.39"
-  resolved "https://registry.yarnpkg.com/@harborlockers/react-native-sdk/-/react-native-sdk-1.0.39.tgz#0426e7f0fda11237181f64a639224517c6fbf983"
-  integrity sha512-nMbPT4xYqQ51/TulkMgrH+xIgZUxsuMY/K98ZTtHxhb/X1yQZMisyDNk7DGY0GAnCOhxAlfXFgypXk8qtUJbpA==
+"@harborlockers/react-native-sdk@^1.0.41-beta.12":
+  version "1.0.41-beta.12"
+  resolved "https://registry.yarnpkg.com/@harborlockers/react-native-sdk/-/react-native-sdk-1.0.41-beta.12.tgz#abbfc3633e0d414dc2210fb69cbc5f1888a5ad48"
+  integrity sha512-PHgnb3UJWI2ilc6h0VL89TU3hTh7hanPUuefUL9MXl1jsULmPeagG+IZ21ZO1/uiE8LlvEmx0DsRIHhVZoWLOQ==
 
 "@humanwhocodes/config-array@^0.11.14":
   version "0.11.14"

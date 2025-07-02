@@ -4,10 +4,29 @@ PODS:
   - FBLazyVector (0.74.5)
   - fmt (9.1.0)
   - glog (0.3.5)
-  - harbor-react-native-sdk (1.0.39):
-    - HarborLockersSDK (= 1.0.21)
-    - React
-  - HarborLockersSDK (1.0.21)
+  - harbor-react-native-sdk (1.0.41-beta.12):
+    - DoubleConversion
+    - glog
+    - HarborLockersSDK (= 1.0.22)
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - HarborLockersSDK (1.0.22)
   - hermes-engine (0.74.5):
     - hermes-engine/Pre-built (= 0.74.5)
   - hermes-engine/Pre-built (0.74.5)
@@ -1359,8 +1378,8 @@ SPEC CHECKSUMS:
   FBLazyVector: ac12dc084d1c8ec4cc4d7b3cf1b0ebda6dab85af
   fmt: 4c2741a687cc09f0634a2e2c72a838b99f1ff120
   glog: fdfdfe5479092de0c4bdbebedd9056951f092c4f
-  harbor-react-native-sdk: a79de0566df12119aee0cfcf69e8378c731aa36e
-  HarborLockersSDK: 32ba5bf401e1fc674be5056b6029c6105cb1283c
+  harbor-react-native-sdk: bba13d855087cd76db7acec0fc4aba1b79cb61a0
+  HarborLockersSDK: a8210cc717d2a73c8ce663e249fb173ede597a66
   hermes-engine: 8c1577f3fdb849cbe7729c2e7b5abc4b845e88f8
   RCT-Folly: 02617c592a293bd6d418e0a88ff4ee1f88329b47
   RCTDeprecation: 3afceddffa65aee666dafd6f0116f1d975db1584
@@ -1413,6 +1432,6 @@ SPEC CHECKSUMS:
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Yoga: 950bbfd7e6f04790fdb51149ed51df41f329fcc8
 
-PODFILE CHECKSUM: b7849c0dd8456b012d261256eea2e2072a0d8471
+PODFILE CHECKSUM: 149fa954c48c8a556b4a7cf00a425a6ba63953eb
 
-COCOAPODS: 1.14.2
+COCOAPODS: 1.15.2
