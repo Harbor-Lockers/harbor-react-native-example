@@ -22,12 +22,6 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>To connect to nearby locker towers</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>To connect to nearby locker towers</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -37,12 +31,16 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>To connect to nearby locker towers</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>We need Bluetooth access to connect with nearby devices.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>We need location access to scan for nearby Bluetooth devices.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need location access when using the app to find nearby devices.</string>
+	<key>RCTNewArchEnabled</key>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

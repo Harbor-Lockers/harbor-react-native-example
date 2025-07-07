@@ -22,7 +22,8 @@ DerivedData
 *.xcuserstate
 .yarnrc.yml
 yarn.lock
-
+.kotlin/
+ 
 # Android/IntelliJ
 #
 build/
