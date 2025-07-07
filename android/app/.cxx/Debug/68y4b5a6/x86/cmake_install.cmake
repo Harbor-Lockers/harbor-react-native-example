@@ -42,6 +42,13 @@ if(NOT DEFINED CMAKE_OBJDUMP)
   set(CMAKE_OBJDUMP "/Users/dylanbozarth/Library/Android/sdk/ndk/27.1.12297006/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-objdump")
 endif()
 
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for each subdirectory.
+  include("/Users/dylanbozarth/Desktop/Repos/Sample-apps/harbor-react-native-example/android/app/.cxx/Debug/68y4b5a6/x86/HarborLockersSDKSpec_autolinked_build/cmake_install.cmake")
+  include("/Users/dylanbozarth/Desktop/Repos/Sample-apps/harbor-react-native-example/android/app/.cxx/Debug/68y4b5a6/x86/RNPermissionsSpec_autolinked_build/cmake_install.cmake")
+
+endif()
+
 if(CMAKE_INSTALL_COMPONENT)
   set(CMAKE_INSTALL_MANIFEST "install_manifest_${CMAKE_INSTALL_COMPONENT}.txt")
 else()

@@ -1,3 +1,9 @@
 /Users/dylanbozarth/Desktop/Repos/Sample-apps/harbor-react-native-example/android/app/.cxx/Debug/68y4b5a6/x86/CMakeFiles/appmodules.dir
 /Users/dylanbozarth/Desktop/Repos/Sample-apps/harbor-react-native-example/android/app/.cxx/Debug/68y4b5a6/x86/CMakeFiles/edit_cache.dir
 /Users/dylanbozarth/Desktop/Repos/Sample-apps/harbor-react-native-example/android/app/.cxx/Debug/68y4b5a6/x86/CMakeFiles/rebuild_cache.dir
+/Users/dylanbozarth/Desktop/Repos/Sample-apps/harbor-react-native-example/android/app/.cxx/Debug/68y4b5a6/x86/HarborLockersSDKSpec_autolinked_build/CMakeFiles/react_codegen_HarborLockersSDKSpec.dir
+/Users/dylanbozarth/Desktop/Repos/Sample-apps/harbor-react-native-example/android/app/.cxx/Debug/68y4b5a6/x86/HarborLockersSDKSpec_autolinked_build/CMakeFiles/edit_cache.dir
+/Users/dylanbozarth/Desktop/Repos/Sample-apps/harbor-react-native-example/android/app/.cxx/Debug/68y4b5a6/x86/HarborLockersSDKSpec_autolinked_build/CMakeFiles/rebuild_cache.dir
+/Users/dylanbozarth/Desktop/Repos/Sample-apps/harbor-react-native-example/android/app/.cxx/Debug/68y4b5a6/x86/RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir
+/Users/dylanbozarth/Desktop/Repos/Sample-apps/harbor-react-native-example/android/app/.cxx/Debug/68y4b5a6/x86/RNPermissionsSpec_autolinked_build/CMakeFiles/edit_cache.dir
+/Users/dylanbozarth/Desktop/Repos/Sample-apps/harbor-react-native-example/android/app/.cxx/Debug/68y4b5a6/x86/RNPermissionsSpec_autolinked_build/CMakeFiles/rebuild_cache.dir

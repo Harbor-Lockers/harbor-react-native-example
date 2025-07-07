@@ -39,6 +39,26 @@ rule CUSTOM_COMMAND
 
 
 #############################################
+# Rule for compiling CXX files.
+
+rule CXX_COMPILER__react_codegen_HarborLockersSDKSpec_Debug
+  depfile = $DEP_FILE
+  deps = gcc
+  command = /Users/dylanbozarth/Library/Android/sdk/ndk/27.1.12297006/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=i686-none-linux-android24 --sysroot=/Users/dylanbozarth/Library/Android/sdk/ndk/27.1.12297006/toolchains/llvm/prebuilt/darwin-x86_64/sysroot $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  description = Building CXX object $out
+
+
+#############################################
+# Rule for compiling CXX files.
+
+rule CXX_COMPILER__react_codegen_RNPermissionsSpec_Debug
+  depfile = $DEP_FILE
+  deps = gcc
+  command = /Users/dylanbozarth/Library/Android/sdk/ndk/27.1.12297006/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=i686-none-linux-android24 --sysroot=/Users/dylanbozarth/Library/Android/sdk/ndk/27.1.12297006/toolchains/llvm/prebuilt/darwin-x86_64/sysroot $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  description = Building CXX object $out
+
+
+#############################################
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE

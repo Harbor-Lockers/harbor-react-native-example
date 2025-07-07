@@ -1,0 +1,21 @@
+# ninja log v5
+1	18	1751919373447778000	/Users/dylanbozarth/Desktop/Repos/Sample-apps/harbor-react-native-example/android/app/.cxx/Debug/68y4b5a6/x86/CMakeFiles/cmake.verify_globs	9c8920985de81ea6
+18	162	1751919373583633472	build.ninja	c9de80e3def86b0d
+0	7	0	/Users/dylanbozarth/Desktop/Repos/Sample-apps/harbor-react-native-example/android/app/.cxx/Debug/68y4b5a6/x86/CMakeFiles/cmake.verify_globs	9c8920985de81ea6
+1	1075	1751919374669132124	HarborLockersSDKSpec_autolinked_build/CMakeFiles/react_codegen_HarborLockersSDKSpec.dir/react/renderer/components/HarborLockersSDKSpec/States.cpp.o	da82890a894931f0
+2	1224	1751919374818550273	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/EventEmitters.cpp.o	3ea7c74895367279
+1	1248	1751919374841601006	HarborLockersSDKSpec_autolinked_build/CMakeFiles/react_codegen_HarborLockersSDKSpec.dir/react/renderer/components/HarborLockersSDKSpec/EventEmitters.cpp.o	dd0d7d229e9de1f8
+3	1388	1751919374980522773	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/Props.cpp.o	32423171bc189a54
+1	1415	1751919375009675206	HarborLockersSDKSpec_autolinked_build/CMakeFiles/react_codegen_HarborLockersSDKSpec.dir/react/renderer/components/HarborLockersSDKSpec/Props.cpp.o	a6fb4dc66ba97d
+3	1453	1751919375043923394	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/RNPermissionsSpecJSI-generated.cpp.o	2a9d0591cd1ce1eb
+1	1550	1751919375139317780	HarborLockersSDKSpec_autolinked_build/CMakeFiles/react_codegen_HarborLockersSDKSpec.dir/react/renderer/components/HarborLockersSDKSpec/HarborLockersSDKSpecJSI-generated.cpp.o	f922ff28f3eeae0c
+1	1557	1751919375145902138	HarborLockersSDKSpec_autolinked_build/CMakeFiles/react_codegen_HarborLockersSDKSpec.dir/HarborLockersSDKSpec-generated.cpp.o	9cb249c425101a1b
+2	1621	1751919375212444379	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/RNPermissionsSpec-generated.cpp.o	af9365f308ce2d03
+1	1630	1751919375222772847	HarborLockersSDKSpec_autolinked_build/CMakeFiles/react_codegen_HarborLockersSDKSpec.dir/react/renderer/components/HarborLockersSDKSpec/ShadowNodes.cpp.o	e3acc5e55999b03
+0	1658	1751919375249605273	CMakeFiles/appmodules.dir/Users/dylanbozarth/Desktop/Repos/Sample-apps/harbor-react-native-example/android/app/build/generated/autolinking/src/main/jni/autolinking.cpp.o	1aa2362548e89b91
+1	1685	1751919375277234229	HarborLockersSDKSpec_autolinked_build/CMakeFiles/react_codegen_HarborLockersSDKSpec.dir/react/renderer/components/HarborLockersSDKSpec/ComponentDescriptors.cpp.o	3da3bd5b02069cd2
+1	1689	1751919375279481861	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/ComponentDescriptors.cpp.o	8659bb73fa56c7de
+0	1754	1751919375344544416	CMakeFiles/appmodules.dir/OnLoad.cpp.o	884157897dff4c59
+1079	1801	1751919375396157799	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/States.cpp.o	ff29199435f9ff50
+1224	2272	1751919375866154125	RNPermissionsSpec_autolinked_build/CMakeFiles/react_codegen_RNPermissionsSpec.dir/react/renderer/components/RNPermissionsSpec/ShadowNodes.cpp.o	c35a27a33de0c0bf
+2272	2327	1751919375920731880	/Users/dylanbozarth/Desktop/Repos/Sample-apps/harbor-react-native-example/android/app/build/intermediates/cxx/Debug/68y4b5a6/obj/x86/libappmodules.so	5a490bbe433b9a4e
