@@ -62,21 +62,25 @@ const App = () => {
   };
   // check if bluetooth is enabled, if not then request permission
   const checkBluetoothPermissions = async () => {
-    return Platform.OS === 'android'
-      ? (async () => {
-          const androidOsVer =
-            Platform.OS === 'android' && Platform.constants['Release'];
-          let androidPermissions = [PERMISSIONS.ANDROID.BLUETOOTH_SCAN];
-
-          if (androidOsVer > 11) {
-            androidPermissions.push(PERMISSIONS.ANDROID.BLUETOOTH_SCAN);
-          }
-
-          const statusesList = await requestMultiple(androidPermissions);
-          return Object.values(statusesList);
-        })()
-      : requestMultiple([PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL]);
+    if (Platform.OS === 'android') {
+      const androidVersion = Platform.Version;
+      const permissions = [
+        PERMISSIONS.ANDROID.BLUETOOTH_SCAN,
+        PERMISSIONS.ANDROID.BLUETOOTH_CONNECT,
+      ];
+  
+      if (androidVersion <= 30) {
+        // Android 11 and below still need location for BLE
+        permissions.push(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+      }
+  
+      const results = await requestMultiple(permissions);
+      return Object.values(results);
+    }
+  
+    return requestMultiple([PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL]);
   };
+  
 
   // gets sdk & api tokens from api, authenticates user bearing the requested api token
   const loadConfig = async () => {
@@ -99,7 +103,7 @@ const App = () => {
   const initSdk = (sdkToken, env) => {
     HarborLockersSDK.setAccessToken(sdkToken, env);
     HarborLockersSDK.initializeSDK();
-    //HarborLockersSDK.setLogLevel('debug'); // uncomment this line if you need to see debug information in the console. Such as firmware or SDK version
+    HarborLockersSDK.setLogLevel('debug'); // uncomment this line if you need to see debug information in the console. Such as firmware or SDK version
     setAccessConfig({...accessConfig, sdk_initializated: true});
   };
 
