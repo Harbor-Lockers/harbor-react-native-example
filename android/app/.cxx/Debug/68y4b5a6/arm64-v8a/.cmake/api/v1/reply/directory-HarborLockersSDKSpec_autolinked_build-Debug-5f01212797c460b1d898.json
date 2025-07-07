@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "HarborLockersSDKSpec_autolinked_build",
+		"source" : "/Users/dylanbozarth/Desktop/Repos/Sample-apps/harbor-react-native-example/node_modules/@harborlockers/react-native-sdk/android/build/generated/source/codegen/jni"
+	}
+}
